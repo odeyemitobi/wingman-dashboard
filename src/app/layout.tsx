@@ -10,7 +10,6 @@ export const metadata: Metadata = {
   description: 'Sales and consultation analytics dashboard for Wingman shopping assistance platform',
   keywords: ['dashboard', 'sales', 'analytics', 'shopping', 'consultation'],
   authors: [{ name: 'Wingman' }],
-  viewport: 'width=device-width, initial-scale=1',
   robots: 'index, follow',
   icons: {
     icon: '/wings.svg'

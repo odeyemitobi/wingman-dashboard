@@ -1,7 +1,7 @@
 "use client";
 
 import { FaHome, FaChartBar, FaComments } from "react-icons/fa";
-import Navigation from "./Navigation";
+import Navigation from "../Navigation";
 import Image from "next/image";
 
 export default function Sidebar() {
