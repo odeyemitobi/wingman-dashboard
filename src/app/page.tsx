@@ -1,11 +1,16 @@
 "use client";
 
-import React from 'react';
+import React from "react";
+import { GlanceSection } from "@/components/Home/Glance";
 
 export default function Home() {
+  const [period, setPeriod] = React.useState("7 days");
+
   return (
-    <div>
-      Home
+    <div className="mx-auto">
+      <div className="lg:mt-10 lg:mx-8 lg:border rounded-2xl lg:px-5 py-8">
+        <GlanceSection period={period} onPeriodChange={setPeriod} />
+      </div>
     </div>
   );
 }
