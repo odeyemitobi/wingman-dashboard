@@ -9,7 +9,9 @@ export default function Home() {
   return (
     <div className="mx-auto">
       <div className="lg:mt-10 lg:mx-8 lg:border rounded-2xl lg:px-5 py-8">
-        <GlanceSection period={period} onPeriodChange={setPeriod} />
+        <>
+          <GlanceSection period={period} onPeriodChange={setPeriod} />
+        </>
       </div>
     </div>
   );

@@ -1,11 +1,14 @@
-import { PiChatCircleDots } from "react-icons/pi";
+import React, { useState, useRef, useEffect } from "react";
 import {
-  FaShoppingCart,
-  FaPercent,
-  FaDollarSign,
-  FaShoppingBasket,
-  FaMoneyBillWave,
-} from "react-icons/fa";
+  PiChatTeardropFill,
+  PiCoinsFill,
+  PiCoinFill,
+  PiCalendarBlankFill,
+  PiCaretDownBold,
+} from "react-icons/pi";
+import { FaTag } from "react-icons/fa6";
+import { ImCheckmark } from "react-icons/im";
+import { MdSavings } from "react-icons/md";
 import { MetricCard } from "./metricCard";
 
 interface GlanceSectionProps {
@@ -17,59 +20,113 @@ export const GlanceSection = ({
   period = "7 days",
   onPeriodChange,
 }: GlanceSectionProps) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
   const metrics = [
     {
-      icon: <PiChatCircleDots size={20} />,
+      icon: <PiChatTeardropFill size={20} />,
       label: "Consultations",
       value: "24",
       change: { value: 15, type: "increase" as const },
     },
     {
-      icon: <FaShoppingCart size={20} />,
+      icon: <FaTag size={20} />,
       label: "Orders Placed",
       value: "12",
       change: { value: 15, type: "decrease" as const },
     },
     {
-      icon: <FaPercent size={20} />,
+      icon: <ImCheckmark size={20} />,
       label: "Conversion",
       value: "50%",
       change: { value: 15, type: "decrease" as const },
     },
     {
-      icon: <FaDollarSign size={20} />,
+      icon: <PiCoinsFill size={20} />,
       label: "Total Sales Value",
       value: "$2,400",
       change: { value: 15, type: "increase" as const },
     },
     {
-      icon: <FaShoppingBasket size={20} />,
+      icon: <PiCoinFill size={20} />,
       label: "Avg Order Value",
       value: "$240",
       change: { value: 15, type: "increase" as const },
     },
     {
-      icon: <FaMoneyBillWave size={20} />,
+      icon: <MdSavings size={20} />,
       label: "Commission Paid",
       value: "$240",
       change: { value: 15, type: "increase" as const },
     },
   ];
 
+  const periods = [
+    { value: "7 days", label: "Last 7 days" },
+    { value: "30 days", label: "Last 30 days" },
+    { value: "90 days", label: "Last 90 days" },
+  ];
+
   return (
     <section className="w-full">
       <div className="flex justify-between items-center mb-6">
-        <h2 className="text-2xl font-semibold text-gray-900">At a glance</h2>
-        <select
-          aria-label="Select time period"
-          value={period}
-          onChange={(e) => onPeriodChange?.(e.target.value)}
-          className="bg-white border border-gray-200 rounded-lg px-4 py-2 text-sm"
-        >
-          <option value="7 days">7 days</option>
-          <option value="30 days">30 days</option>
-          <option value="90 days">90 days</option>
-        </select>
+        <h2 className="text-3xl font-semibold text-[#212636]">At a glance</h2>
+
+        <div className="relative" ref={dropdownRef}>
+          <button
+            onClick={() => setIsOpen(!isOpen)}
+            className="flex items-center justify-between w-48 px-4 py-2 bg-white border border-gray-200 rounded-lg text-sm font-medium text-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#CCFBEF] transition-all duration-200"
+          >
+            <div className="flex items-center space-x-2">
+              <PiCalendarBlankFill className="w-4 h-4 text-gray-400" />
+              <span>{periods.find((p) => p.value === period)?.label}</span>
+            </div>
+            <PiCaretDownBold
+              className={`w-4 h-4 text-gray-400 transition-transform duration-200 ${
+                isOpen ? "transform rotate-180" : ""
+              }`}
+            />
+          </button>
+
+          {isOpen && (
+            <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg py-1 z-10 transform opacity-100 scale-100 transition-all duration-200">
+              {periods.map((option) => (
+                <button
+                  key={option.value}
+                  onClick={() => {
+                    onPeriodChange?.(option.value);
+                    setIsOpen(false);
+                  }}
+                  className={`w-full px-4 py-2 text-sm text-left transition-colors duration-150
+                    ${
+                      period === option.value
+                        ? "text-[#667085] bg-[#CCFBEF]"
+                        : "text-gray-700"
+                    }
+                    ${period === option.value ? "font-semibold" : "font-normal"}
+                  `}
+                >
+                  {option.label}
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -80,3 +137,5 @@ export const GlanceSection = ({
     </section>
   );
 };
+
+export default GlanceSection;
