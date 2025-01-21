@@ -83,11 +83,13 @@ export const GlanceSection = ({
   ];
 
   return (
-    <section className="w-full">
-      <div className="flex justify-between items-center mb-6">
-        <h2 className="text-3xl font-semibold text-[#212636]">At a glance</h2>
+    <section className="w-full relative">
+      <div className="lg:flex justify-between items-center mb-6">
+        <h2 className="text-3xl font-semibold text-[#212636] lg:mb-0 mb-4">
+          At a glance
+        </h2>
 
-        <div className="relative" ref={dropdownRef}>
+        <div className="relative inline-block" ref={dropdownRef}>
           <button
             onClick={() => setIsOpen(!isOpen)}
             className="flex items-center justify-between w-48 px-4 py-2 bg-white border border-gray-200 rounded-lg text-sm font-medium text-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#CCFBEF] transition-all duration-200"
@@ -104,7 +106,7 @@ export const GlanceSection = ({
           </button>
 
           {isOpen && (
-            <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg py-1 z-10 transform opacity-100 scale-100 transition-all duration-200">
+            <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg py-1 z-20">
               {periods.map((option) => (
                 <button
                   key={option.value}
@@ -119,6 +121,7 @@ export const GlanceSection = ({
                         : "text-gray-700"
                     }
                     ${period === option.value ? "font-semibold" : "font-normal"}
+                    hover:bg-gray-50
                   `}
                 >
                   {option.label}
