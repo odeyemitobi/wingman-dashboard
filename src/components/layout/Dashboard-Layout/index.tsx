@@ -14,13 +14,13 @@ export const DashboardLayout = ({ children }: DashboardLayoutProps) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-white">
       <button
         onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-        className="lg:hidden fixed top-4 left-4 z-50 p-2 rounded-lg bg-teal-800 text-white"
+        className="lg:hidden fixed top-4 mt-[6px] left-4 z-50 p-2 rounded-lg bg-teal-800 text-white"
         aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
       >
-        {isMobileMenuOpen ? <IoClose size={24} /> : <HiMenu size={24} />}
+        {isMobileMenuOpen ? <IoClose size={20} /> : <HiMenu size={20} />}
       </button>
 
       <div
