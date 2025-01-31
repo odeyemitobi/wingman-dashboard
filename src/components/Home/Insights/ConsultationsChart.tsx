@@ -21,11 +21,11 @@ export const ConsultationsChart = () => {
         </div>
         <h3 className="text-sm font-medium tracking-wider">CONSULTATIONS</h3>
       </div>
-      <div className="h-[400px]">
+      <div className="h-[440px] border-b">
         <ResponsiveContainer width="100%" height="100%">
           <ComposedChart
             data={weeklyData}
-            margin={{ top: 20, right: 30, left: 20, bottom: 20 }}
+            margin={{ top: 20, right: 30, left: 0, bottom: 20 }}
           >
             <CartesianGrid
               strokeDasharray="3 3"
